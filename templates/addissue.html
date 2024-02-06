@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Create New Series
+{% endblock %}
+
+{% block main %}
+<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+    <div class="row h-100 justify-content-center align-items-center">    
+        <h2>Add an issue to {{ binge.title }}</h2>
+        <form action="/addissue" method="POST">                
+            <select class="form-select" aria-label="Default select example" name="series">
+                <option selected value="">Series</option>
+                {% for series in comic_series %}
+                    <option value="{{ series.id }}">{{ series.name }}</option>
+                {% endfor %}
+                </select>
+            <input type="number" class="form-control" id="floatingInput" placeholder="issue number" name="issue" min="0">
+            <select class="form-select" aria-label="Default select example" name="writer">
+                <option selected value="">Writer</option>
+                {% for writer in writers %}
+                    <option value="{{ writer.id }}">{{ writer.name }}</option>
+                {% endfor %}
+                </select>
+                <select class="form-select" aria-label="Default select example" name="artist">
+                <option selected value="">Artist</option>
+                {% for artist in artists %}
+                    <option value="{{ artist.id }}">{{ artist.name }}</option>
+                {% endfor %}
+                </select>
+
+            <button class="btn btn-primary w-100 py-2" type="submit" value="{{binge.id}}" name="setbinge">Add Issue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

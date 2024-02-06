@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+    <div class="row h-100 justify-content-center align-items-center">    
+        <form class="form-signin w-100 m-auto col-12" action="/register" method="POST">
+            <h1 class="h3 mb-3 fw-normal">Please register</h1>
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" name="username" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input id="floatingPassword" class="form-control" name="password" type="password" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating">
+                <input id="floatingPassword" class="form-control" name="confirmation" type="password" placeholder="Confirm Password">
+                <label for="floatingPassword">Confirm Password</label>
+            </div>            
+            
+            <button class="btn btn-primary w-100 py-2" type="submit">Register</button>        
+        </form>
+    </div>
+</div>
+{% endblock %}

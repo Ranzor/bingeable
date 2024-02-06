@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-4">
+        {% for binge in binges %}
+            <div class="row mb-3">
+                <div class="col-12 bg-secondary rounded p-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="mx-auto">
+                            <h3 class="text-white">{{ binge.title }}</h3>
+                        </div>
+                        <form action="/deletebinge" method="POST">
+                            <button class="btn btn-danger btn-sm ml-2" type="submit" value="{{binge.id}}" name="binge">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row bg-primary text-white p-2 rounded">
+                <div class="col-1">Read</div>
+                <div class="col-2">Series</div>
+                <div class="col-1">Issue</div>
+                <div class="col-2">Writer</div>
+                <div class="col-2">Artist</div>
+                <div class="col-3">Description</div>
+                <div class="col-1"></div> <!-- Empty column for spacing -->
+            </div>
+            
+            {% for issues in reading_list %}
+                {% if binge.id == issues.binge_id %}
+                    <div class="row border-top py-2">
+                        <div class="col-1">
+                            {% if issues.have_read == 1 %}
+                                <form action="/read" method="POST">
+                                    <input type="hidden" name="read" value="0">
+                                    <input class="read" type="submit" value="{{issues.id}}" name="issue">
+                                </form>
+                            {% else %}
+                                <form action="/read" method="POST">
+                                    <input type="hidden" name="read" value="1">
+                                    <input class="notread" type="submit" value="{{issues.id}}" name="issue">
+                                </form>
+                            {% endif %}
+                        </div>
+                        <div class="col-2">
+                            {% for series in comic_series %}
+                                {% if series.id == issues.comic_id %}
+                                    {{ series.name }}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-1">#{{ issues.issue }}</div>
+                        <div class="col-2">
+                            {% for writer in writers %}
+                                {% if writer.id == issues.writer_id %}
+                                <form id="profile-{{writer.name}}" action="/profile" method="POST">
+                                    <input type="hidden"  name="name" value="{{writer.name}}">
+                                    <a href="#" onClick="pleaseSubmit('profile-{{writer.name}}')" >{{ writer.name }}</a>
+                                </form>
+                                {% endif %}                    
+                            {% endfor %}
+                        </div>
+                        <div class="col-2">
+                            {% for artist in artists %}
+                                {% if artist.id == issues.artist_id %}
+                                    <form id="profile-{{artist.name}}" action="/profile" method="POST">
+                                        <input type="hidden"  name="name" value="{{artist.name}}">
+                                        <a href="#" onClick="pleaseSubmit('profile-{{artist.name}}')" >{{ artist.name }}</a>
+                                    </form>
+                                {% endif %}                    
+                            {% endfor %}
+                        </div>
+                        <div class="col-3">
+                            {% if not issues.desc %}
+                                <form action="/updatedesc" method="POST">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="floatingInput" name="desc" placeholder="Add Description">
+                                        <button class="btn btn-primary" type="submit" value="{{issues.id}}" name="issue">Add</button>
+                                    </div>
+                                </form>
+                            {% else %}
+                                {{ issues.desc }}
+                            {% endif %}
+                        </div>
+                        <div class="col-1">
+                            <form action="/deleteissue" method="POST">
+                                <button class="btn btn-secondary btn-sm mt-2" type="submit" value="{{issues.id}}" name="issue">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <div class="row mt-3">
+                <form action="/addissue" method="POST">
+                    <button class="btn btn-primary" type="submit" value="{{binge.id}}" name="binge">Add Issue</button>
+                </form>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+    <script>
+        function pleaseSubmit(formID)
+        {
+            document.getElementById(formID).submit();
+        }
+    </script>
+{% endblock %}

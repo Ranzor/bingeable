@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+    <div class="row h-100 justify-content-center align-items-center">    
+        <form class="form-signin w-100 m-auto col-12" action="/login" method="POST">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="username">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input id="floatingPassword" class="form-control" type="password" placeholder="Password" name="password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-check text-start my-3">
+                <input id="flexCheckDefault" class="form-check-input" type="checkbox" value="remember-me">
+                <label class="form-check-label" for="flexCheckDefault">Remember Me</label>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">Sign In</button>        
+        </form>
+    </div>
+</div>
+{% endblock %}

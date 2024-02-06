@@ -1,0 +1,18 @@
+*** CS50 Final Project ***
+
+"bindge" tracker.
+
+Content tracker for bingeing content. Like MCU marathon or My Marvelous Year.
+
+Look into using movie/tv db apis to get content.
+
+MVP:
+Add categories (MCU Binge, Smalville TV show + podcast) etc.
+Track progress, with visual element.
+Rating field.
+Comment field.
+
+
+Like to add:
+Select different content types (author, actor etc) that you want to add.
+

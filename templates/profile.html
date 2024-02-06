@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ person.name }}
+{% endblock %}
+
+{% block main %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Profile Picture -->
+        <div class="col-md-3">
+            <div class="profile-picture-container">
+                <img src="/static/images/{{ person.img }}" alt="Profile Image" class="img-fluid rounded profile-picture">
+            </div>
+        </div>
+        <!-- User Info -->
+        <div class="col-md-9">
+            <h2>{{ person.name }}</h2>
+            <p class="text-muted">{{ person.desc }}</p>
+            <!-- Additional Info -->
+            <div class="mb-3">
+                <strong>Attributed Comics:</strong>
+                {% for issues in reading_list %}                    
+                    {% for comics in comic_series %}
+                        {% if comics.id == issues.comic_id %}
+                            {% if issues[creator + '_id'] == person.id and issues.user_id == user %}
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ comics.name }}</h5>
+                                        <p class="card-text">Issue #{{ issues.issue }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}                    
+                    {% endfor %}
+                {% endfor %}
+            
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
